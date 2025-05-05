@@ -1,11 +1,28 @@
 import numpy as np
-from scipy.optimize import fsolve
 
 def tənlik(x):
     return (x**2) * np.arctan(x) - 1
-
-x0 = [1.0, 1.2]
-
-x_həlledilmiş = fsolve(tənlik, x0)
-
-print(f"Tənliyin həlli: x = {x_həlledilmiş[0]}")
+def parçanı_yarıya_bölmə(f, a, b, tol=1e-6, max_iter=1000):
+    if f(a) * f(b) >= 0:
+        print("Intervalın uclarında tənliyin əks işarələri yoxdur!")
+        return None
+    
+    iterasiya = 0
+    while (b - a) / 2.0 > tol:
+        iterasiya += 1
+        c = (a + b) / 2.0
+        if f(c) == 0:
+            break
+        elif f(a) * f(c) < 0:
+            b = c
+        else:
+            a = c
+        if iterasiya > max_iter:
+            print("Maksimum iterasiya sayı keçildi!")
+            return None
+    return (a + b) / 2.0
+a = 1.0
+b = 1.2
+kök = parçanı_yarıya_bölmə(tənlik, a, b)
+if kök is not None:
+    print(f"Tənliyin kökü: x = {kök}")
