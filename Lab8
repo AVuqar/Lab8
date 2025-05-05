@@ -1,0 +1,11 @@
+import numpy as np
+from scipy.optimize import fsolve
+
+def tənlik(x):
+    return (x**2) * np.arctan(x) - 1
+
+x0 = [1.0, 1.2]
+
+x_həlledilmiş = fsolve(tənlik, x0)
+
+print(f"Tənliyin həlli: x = {x_həlledilmiş[0]}")
